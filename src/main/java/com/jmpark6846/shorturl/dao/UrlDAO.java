@@ -1,6 +1,6 @@
 package com.jmpark6846.shorturl.dao;
 
-import com.jmpark6846.shorturl.data.entity.Url;
+import com.jmpark6846.shorturl.data.entity.ShortUrl;
 
 public interface UrlDAO {
     /*
@@ -11,9 +11,8 @@ public interface UrlDAO {
      * get url statistics
      * */
 
-    Url createShortUrl(String url);
-    Url retrieveOriginalUrl(String shortCode);
-    Url updateUrl(String shortCode, String url);
-    void deleteUrl(String shortCode);
-    Url getStat(String shortCode);
+    ShortUrl createShortUrl(ShortUrl s);
+    ShortUrl getShortUrl(String shortCode);
+    ShortUrl updateShortUrl(String shortCode, String url);
+    void deleteShortUrl(String shortCode);
 }

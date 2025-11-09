@@ -1,6 +1,6 @@
 package com.jmpark6846.shorturl.service;
 
-import com.jmpark6846.shorturl.data.entity.Url;
+import com.jmpark6846.shorturl.dto.UrlAccessResponseDto;
 import com.jmpark6846.shorturl.dto.UrlResponseDto;
 
 public interface UrlService {
@@ -15,5 +15,5 @@ public interface UrlService {
     UrlResponseDto retrieveOriginalUrl(String shortCode);
     UrlResponseDto updateUrl(String shortCode, String url);
     void deleteUrl(String shortCode);
-    UrlResponseDto getStat(String shortCode);
+    UrlAccessResponseDto getStat(String shortCode);
 }
