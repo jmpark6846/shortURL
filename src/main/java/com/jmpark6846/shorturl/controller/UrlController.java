@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/shorten")
@@ -44,7 +43,16 @@ public class UrlController {
 
     @PutMapping(value = "/{shortCode}")
     public ResponseEntity<UrlResponseDto> updateShortUrl(@PathVariable("shortCode") @NotBlank @Size(min=10, max=10) String shortCode, @Validated @RequestBody ShortUrlDto dto) {
-        UrlResponseDto responseDto = urlService.updateUrl(shortCode, dto.getUrl());
+        UrlResponseDto responseDto = urlService.updateShortUrl(shortCode, dto);
+        return ResponseEntity
+                .status(HttpStatus.ACCEPTED)
+                .body(responseDto);
+    }
+
+    @PutMapping(value = "/{shortCode}/access")
+    public ResponseEntity<UrlAccessResponseDto> accessShortUrl(@PathVariable @NotBlank @Size(min=10, max=10) String shortCode){
+        UrlAccessResponseDto responseDto = urlService.accessShortUrl(shortCode);
+
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
                 .body(responseDto);

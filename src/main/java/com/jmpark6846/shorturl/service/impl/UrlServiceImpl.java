@@ -2,6 +2,7 @@ package com.jmpark6846.shorturl.service.impl;
 
 import com.jmpark6846.shorturl.dao.UrlDAO;
 import com.jmpark6846.shorturl.data.entity.ShortUrl;
+import com.jmpark6846.shorturl.dto.ShortUrlDto;
 import com.jmpark6846.shorturl.dto.UrlAccessResponseDto;
 import com.jmpark6846.shorturl.dto.UrlResponseDto;
 import com.jmpark6846.shorturl.service.UrlService;
@@ -62,12 +63,26 @@ public class UrlServiceImpl implements UrlService {
     }
 
     @Override
-    public UrlResponseDto updateUrl(String shortCode, String url) {
-        ShortUrl shortUrl = urlDAO.updateShortUrl(shortCode, url);
+    public UrlResponseDto updateShortUrl(String shortCode, ShortUrlDto dto) {
+        ShortUrl shortUrl = urlDAO.updateShortUrl(shortCode, dto);
         return UrlResponseDto.builder()
                 .id(shortUrl.getId())
                 .url(shortUrl.getUrl())
                 .shortCode(shortUrl.getShortCode())
+                .createdAt(shortUrl.getCreatedAt())
+                .updatedAt(shortUrl.getUpdatedAt())
+                .build();
+    }
+
+    @Override
+    public UrlAccessResponseDto accessShortUrl(String shortCode) {
+        ShortUrl shortUrl = urlDAO.increaseAccessCount(shortCode);
+
+        return UrlAccessResponseDto.builder()
+                .id(shortUrl.getId())
+                .url(shortUrl.getUrl())
+                .shortCode(shortUrl.getShortCode())
+                .accessCount(shortUrl.getAccessCount())
                 .createdAt(shortUrl.getCreatedAt())
                 .updatedAt(shortUrl.getUpdatedAt())
                 .build();
